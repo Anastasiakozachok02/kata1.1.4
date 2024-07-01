@@ -1,7 +1,6 @@
 package jm.task.core.jdbc.util;
 
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -10,12 +9,25 @@ public class Util {
     private static final String USER = "root";
     private static final String PASSWORD = "root";
 
-    public static Connection getConnection() throws SQLException {
+    private static Connection connection = null;
+
+    private Util() {
+    }
+
+    public static Connection getConnection() {
         try {
-            return DriverManager.getConnection(URL, USER, PASSWORD);
+            connection = DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        throw new SQLException();
+        return connection;
+    }
+
+    public static void closeConnection() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
