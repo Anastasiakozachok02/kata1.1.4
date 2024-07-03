@@ -12,6 +12,7 @@ public class Util {
     private static Connection connection = null;
 
     private Util() {
+
     }
 
     public static Connection getConnection() {
